@@ -1,0 +1,20 @@
+# # Ignorar archivos temporales de sistema
+# *.tmp
+# *.log
+
+# # Ignorar directorios de compilación
+
+/Empresa_Conexion_MYSQL/__pycache__
+
+
+# # Ignorar archivos de configuración de IDE
+# /.vscode/
+# /.idea/
+
+# # Ignorar archivos de Python
+# __pycache__/
+# /*.pyc
+# *.pyo
+
+# # Ignorar archivos de entorno virtual
+# venv/
