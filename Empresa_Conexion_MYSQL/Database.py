@@ -24,7 +24,7 @@ class Database():
         self.conexion.close()
     
     #Seleccionar y mostrar todos los registros de la tabla repuestos en la base de datos:
-    def select_todos(self):
+    def ListaRepuestos(self):
         #Consulta SQL:
         sql = 'select * from repuestos'
         try:
@@ -46,3 +46,5 @@ class Database():
         #Si hay un error, aparecerá en pantalla:       
         except Exception as err:
             print(err)
+            
+    
