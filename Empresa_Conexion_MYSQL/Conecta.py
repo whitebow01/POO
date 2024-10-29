@@ -5,4 +5,5 @@ from Database import *
 
 db = Database()
 db.ListaRepuestos()
+db.BuscarRepuesto()
 db.cerrarBD()

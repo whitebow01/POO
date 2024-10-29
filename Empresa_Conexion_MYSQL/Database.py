@@ -47,4 +47,24 @@ class Database():
         except Exception as err:
             print(err)
             
-    
+    def BuscarRepuesto(self,cod):
+        sql = 'select * from repuestos where codrep = '+repr(cod) 
+        #repr agrega cremillas al cod
+        try:
+            self.cursor.execute(sql)
+            rep = self.cursor.fetchone()
+            if rep != None:
+                print((
+                f"{'Codigo':10}"
+                f"{'Nombre repuesto ':20}"
+                f"{'Fecha fabricacion ':12}"
+                f"{'Precio proveedor ':12}"
+                f"{'Precio venta ':12}"
+                f"{'Peso ':12}"
+                ))
+            else:
+                print('Codigo no existe')
+        except Exception as err:
+            print(err)     
+            
+            
