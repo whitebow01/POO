@@ -24,7 +24,7 @@ class Database():
         self.conexion.close()
     
     #Seleccionar y mostrar todos los registros de la tabla repuestos en la base de datos:
-    def ListaRepuestos(self):
+    def listaRepuestos(self):
         #Consulta SQL:
         sql = 'select * from repuestos'
         try:
@@ -47,7 +47,7 @@ class Database():
         except Exception as err:
             print(err)
             
-    def BuscarRepuesto(self,cod):
+    def buscarRepuesto(self,cod):
         sql = 'select * from repuestos where codrep = '+repr(cod) 
         #repr agrega cremillas al cod
         try:
@@ -68,3 +68,28 @@ class Database():
                 print('Codigo no existe')
         except Exception as err:
             print(err)     
+
+    def insertarRepuesto(self):
+        codR = input('Codigo = \n')
+        sql1 = 'select codrep from repuestos where codrep ='+repr(codR)
+        try:
+            self.cursor.execute(sql1)
+            if self.cursor.fetchone() == None:
+                nomR = input('Nombre =\n')
+                fechaF = input('Fecha de fabricacion (dd/mm/aaaa) = \n')
+                precioProv = int(input('Precio de proveedor = \n'))
+                precioVent = int(input('Precio de venta = \n'))
+                peso = float(input('Peso(kg) = \n'))
+                sql2 = "insert into repuestos values("+repr(codR)+","+repr(nomR)+\
+                    ",str_to_date("+repr(fechaF)+",'%d/%j/%Y'),"+repr(precioProv)+\
+                    ","+repr(precioVent)+","+repr(peso)+")"
+                try:
+                    self.cursor.execute(sql2)
+                    self.conexion.commit()    
+                except Exception as err:
+                    self.conexion.rollback()
+                    print(err)
+            else:
+                print('Ya existe este codigo')
+        except Exception as err:
+            print(err)

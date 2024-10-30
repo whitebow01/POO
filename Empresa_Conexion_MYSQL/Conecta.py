@@ -11,13 +11,16 @@ while True:
     elige = input('\n Elije una opcion: \n\
         \t Mostrar un repuesto(u)\n\
         \t Mostrar todos los repuestos(t)\n\
+        \t Insertar repuesto(i)\n\
         \t Fin(f)\n\
         \t ==>').lower()
     if elige == 'u':
         codAbuscar = input('Ingrese código a buscar =')
-        db.BuscarRepuesto(codAbuscar)
+        db.buscarRepuesto(codAbuscar)
     elif elige == 't':
-        db.ListaRepuestos()
+        db.listaRepuestos()
+    elif elige == 'i':
+        db.insertarRepuesto()
     elif elige == 'f':
         print('Fin')
         db.cerrarBD()
