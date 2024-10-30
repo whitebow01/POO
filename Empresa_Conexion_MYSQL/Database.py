@@ -62,9 +62,9 @@ class Database():
                 f"{'Precio venta ':12}"
                 f"{'Peso ':12}"
                 ))
+                
+                print(f"{rep[0]:10}{rep[1]:20}{rep[2].strftime('%d/%m/%Y'):12}{rep[3]:<12}{rep[4]:<12}{rep[5]:<12}")
             else:
                 print('Codigo no existe')
         except Exception as err:
             print(err)     
-            
-            
