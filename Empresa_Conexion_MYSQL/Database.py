@@ -93,3 +93,29 @@ class Database():
                 print('Ya existe este codigo')
         except Exception as err:
             print(err)
+            
+    def deleteRepuesto(self):
+        codR = input('Codigo =') 
+        sql1 = 'select * from repuestos where codrep='+repr(codR)
+        try:
+            self.cursor.execute(sql1)
+            if self.cursor.fetchone() != None:
+                sql2 = 'select * from ventas where codrepuesto ='+repr(codR)
+                try:
+                    self.cursor.execute(sql2)
+                    if self.cursor.fetchone()!= None:
+                        print('No se puede eliminar, porque esta en la tabla Ventas')
+                    else:
+                        sql3 = 'delete from repuestos where codrep='+repr(codR)
+                        try:
+                            self.cursor.execute(sql3)
+                            self.conexion.commit()
+                        except Exception as err:
+                            self.conexion.rollback()
+                            print(err)
+                except Exception as err:
+                    print(err)
+            else:
+                print('No existe este codigo')
+        except Exception as err:
+            print(err)
