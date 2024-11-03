@@ -9,9 +9,9 @@ db = Database()
 
 while True:
     elige = input('\n Elije una opcion: \n\
-        \t Mostrar un repuesto(b)\n\
         \t Mostrar todos los repuestos(l)\n\
         \t Insertar repuesto(i)\n\
+        \t Mostrar un repuesto(b)\n\
         \t Eliminar un repuesto (e))\n\
         \t Fin(f)\n\
         \t ==> \n ').lower()

@@ -24,7 +24,7 @@ class Database():
         self.conexion.close()
     
     #Seleccionar y mostrar todos los registros de la tabla repuestos en la base de datos:
-    def listaRepuestos(self):
+    def listRepuestos(self): 
         #Consulta SQL:
         sql = 'select * from repuestos'
         try:
@@ -46,30 +46,7 @@ class Database():
         #Si hay un error, aparecerá en pantalla:       
         except Exception as err:
             print(err)
-            
-    def buscarRepuesto(self,cod):
-        sql = 'select * from repuestos where codrep = '+repr(cod) 
-        #repr agrega cremillas al cod
-        try:
-            self.cursor.execute(sql)
-            rep = self.cursor.fetchone()
-            if rep != None:
-                print((
-                f"{'Codigo':10}"
-                f"{'Nombre repuesto ':20}"
-                f"{'Fecha fabricacion ':12}"
-                f"{'Precio proveedor ':12}"
-                f"{'Precio venta ':12}"
-                f"{'Peso ':12}"
-                ))
-                
-                print(f"{rep[0]:10}{rep[1]:20}{rep[2].strftime('%d/%m/%Y'):12}{rep[3]:<12}{rep[4]:<12}{rep[5]:<12}")
-            else:
-                print('Codigo no existe')
-        except Exception as err:
-            print(err)     
-
-    def insertarRepuesto(self):
+    def createRepuesto(self):
         codR = input('Codigo = \n')
         sql1 = 'select codrep from repuestos where codrep ='+repr(codR)
         try:
@@ -92,7 +69,32 @@ class Database():
             else:
                 print('Ya existe este codigo')
         except Exception as err:
-            print(err)
+            print(err)        
+    
+    def readRepuesto(self,cod):
+        sql = 'select * from repuestos where codrep = '+repr(cod) 
+        #repr agrega cremillas al cod
+        try:
+            self.cursor.execute(sql)
+            rep = self.cursor.fetchone()
+            if rep != None:
+                print((
+                f"{'Codigo':10}"
+                f"{'Nombre repuesto ':20}"
+                f"{'Fecha fabricacion ':12}"
+                f"{'Precio proveedor ':12}"
+                f"{'Precio venta ':12}"
+                f"{'Peso ':12}"
+                ))
+                
+                print(f"{rep[0]:10}{rep[1]:20}{rep[2].strftime('%d/%m/%Y'):12}{rep[3]:<12}{rep[4]:<12}{rep[5]:<12}")
+            else:
+                print('Codigo no existe')
+        except Exception as err:
+            print(err)     
+
+    # def updateRepuestos(self):
+        
             
     def deleteRepuesto(self):
         codR = input('Codigo =') 
@@ -119,3 +121,5 @@ class Database():
                 print('No existe este codigo')
         except Exception as err:
             print(err)
+    
+    
