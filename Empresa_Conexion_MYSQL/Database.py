@@ -93,8 +93,52 @@ class Database():
         except Exception as err:
             print(err)     
 
-    # def updateRepuestos(self):
-        
+    def updateRepuestos(self):
+        codR = input('Codigo =') 
+        sql1 = 'select * from repuestos where codrep='+repr(codR)
+        try:
+            self.cursor.execute(sql1)
+            rep=self.cursor.fetchone()
+            if rep!= None:
+                print((
+                    f"{'Codigo':10}"
+                    f"{'Nombre repuesto ':20}"
+                    f"{'Fecha fabricacion ':12}"
+                    f"{'Precio proveedor ':12}"
+                    f"{'Precio venta ':12}"
+                    f"{'Peso ':12}"
+                    ))
+                print(f"{rep[0]:10}{rep[1]:20}{rep[2].strftime('%d/%m/%Y'):12}{rep[3]:<12}{rep[4]:<12}{rep[5]:<12}")
+                elige=input('\n Que desea modificar?(Nombre(n),fecha fabr.(f),\
+                    precio prov.(p), precio venta(v), peso(k))=').lower()
+                if elige=='f':
+                    nueva=input('Ingrese nueva fecha(dd/mm/aaaa)=')
+                    sql2 = "update repuestos set fechafabr=\
+                        str_to_date("+repr(nueva)+",'%d/%m/%Y') where codrep="+repr(codR)
+                else:
+                    if elige=='n':
+                        campo='nomrep'
+                        nuevo=input('Ingrese nuevo nombre=')
+                    if elige=='p':
+                        campo='precioproveedor'
+                        nuevo=int(input('Ingrese nuevo precio de proveedor='))
+                    if elige=='v':
+                        campo='precioventa'
+                        nuevo=int(input('Ingrese nuevo precio de venta='))
+                    if elige=='k':
+                        campo='peso'
+                        nuevo=float(input('Ingrese nuevo peso='))
+                    sql2 = 'update repuestos set '+campo+'='+repr(nuevo)+' where codrep='+repr(codR)
+                    try:
+                        self.cursor.execute(sql2)
+                        self.conexion.commit()
+                    except Exception as err:
+                        self.conexion.rollback()
+                        print(err)
+            else:
+                print('No existe ese código')
+        except Exception as err: 
+            print(err)         
             
     def deleteRepuesto(self):
         codR = input('Codigo =') 

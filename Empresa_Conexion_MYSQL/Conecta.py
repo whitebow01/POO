@@ -10,20 +10,24 @@ db = Database()
 while True:
     elige = input('\n Elije una opcion: \n\
         \t Mostrar todos los repuestos(l)\n\
-        \t Insertar repuesto(i)\n\
         \t Mostrar un repuesto(b)\n\
-        \t Eliminar un repuesto (e))\n\
+        \t Insertar repuesto(c)\n\
+        \t Eliminar un repuesto (d)\n\
+        \t Modificar(m)\n\
         \t Fin(f)\n\
         \t ==> \n ').lower()
     if elige == 'b':
         codAbuscar = input('Ingrese código a buscar = \n')
-        db.buscarRepuesto(codAbuscar)
+        db.readRepuesto(codAbuscar)
     elif elige == 'l':
-        db.listaRepuestos()
-    elif elige == 'i':
-        db.insertarRepuesto()
-    elif elige == 'e':
+        db.listRepuestos()
+    elif elige == 'c':
+        db.createRepuesto()
+    elif elige == 'd':
         db.deleteRepuesto()
+    elif elige=='m':
+        db.updateRepuestos()
+
     elif elige == 'f':
         print('Fin')
         db.cerrarBD()
