@@ -32,6 +32,8 @@ class Database():
             self.cursor.execute(sql)
             #Se utiliza fetchall() para obtener todos los resultados, que se almacenan en repu:
             repu = self.cursor.fetchall() #devuelve una tupla con los registros de Repuestos
+            #Los numero al lado de codigo etc, Nos dice cuantos espacios ocuparan al mostrarse. 
+            #Asi se muestran los datos alineados en la terminal
             print((
             f"{'Codigo':10}"
             f"{'Nombre repuesto ':20}"
@@ -71,13 +73,15 @@ class Database():
         except Exception as err:
             print(err)        
     
-    def readRepuesto(self,cod):
-        sql = 'select * from repuestos where codrep = '+repr(cod) 
+    def readRepuesto(self):    
+        codAbuscar = input('Ingrese código a buscar = \n')
+    
+        sql = 'select * from repuestos where codrep = '+repr(codAbuscar) 
         #repr agrega cremillas al cod
         try:
             self.cursor.execute(sql)
             rep = self.cursor.fetchone()
-            if rep != None:
+            if rep is not None:
                 print((
                 f"{'Codigo':10}"
                 f"{'Nombre repuesto ':20}"
@@ -89,13 +93,13 @@ class Database():
                 
                 print(f"{rep[0]:10}{rep[1]:20}{rep[2].strftime('%d/%m/%Y'):12}{rep[3]:<12}{rep[4]:<12}{rep[5]:<12}")
             else:
-                print('Codigo no existe')
+                print('Codigo no existe en la base de datos')
         except Exception as err:
-            print(err)     
+            print("Error al realizar la consulta", err)     
 
     def updateRepuestos(self):
-        codR = input('Codigo =') 
-        sql1 = 'select * from repuestos where codrep='+repr(codR)
+        codAbuscar = input('Ingrese código a Actualizar = \n')
+        sql1 = 'select * from repuestos where codrep='+repr(codAbuscar)
         try:
             self.cursor.execute(sql1)
             rep=self.cursor.fetchone()
@@ -109,12 +113,12 @@ class Database():
                     f"{'Peso ':12}"
                     ))
                 print(f"{rep[0]:10}{rep[1]:20}{rep[2].strftime('%d/%m/%Y'):12}{rep[3]:<12}{rep[4]:<12}{rep[5]:<12}")
-                elige=input('\n Que desea modificar?(Nombre(n),fecha fabr.(f),\
-                    precio prov.(p), precio venta(v), peso(k))=').lower()
+                ##Da la opcion de elegir que desea modificar
+                elige=input('\n Que desea modificar?\n Nombre(n)\n Fecha de fabricacion(f)\n Precio proveedor(p)\n Precio venta(v)\n peso(k)\n=').lower()
                 if elige=='f':
                     nueva=input('Ingrese nueva fecha(dd/mm/aaaa)=')
                     sql2 = "update repuestos set fechafabr=\
-                        str_to_date("+repr(nueva)+",'%d/%m/%Y') where codrep="+repr(codR)
+                        str_to_date("+repr(nueva)+",'%d/%m/%Y') where codrep="+repr(codAbuscar)
                 else:
                     if elige=='n':
                         campo='nomrep'
@@ -128,7 +132,7 @@ class Database():
                     if elige=='k':
                         campo='peso'
                         nuevo=float(input('Ingrese nuevo peso='))
-                    sql2 = 'update repuestos set '+campo+'='+repr(nuevo)+' where codrep='+repr(codR)
+                    sql2 = 'update repuestos set '+campo+'='+repr(nuevo)+' where codrep='+repr(codAbuscar)
                     try:
                         self.cursor.execute(sql2)
                         self.conexion.commit()
@@ -141,18 +145,18 @@ class Database():
             print(err)         
             
     def deleteRepuesto(self):
-        codR = input('Codigo =') 
-        sql1 = 'select * from repuestos where codrep='+repr(codR)
+        codAbuscar = input('Ingrese código a Eliminar = \n')
+        sql1 = 'select * from repuestos where codrep='+repr(codAbuscar)
         try:
             self.cursor.execute(sql1)
             if self.cursor.fetchone() != None:
-                sql2 = 'select * from ventas where codrepuesto ='+repr(codR)
+                sql2 = 'select * from ventas where codrepuesto ='+repr(codAbuscar)
                 try:
                     self.cursor.execute(sql2)
                     if self.cursor.fetchone()!= None:
                         print('No se puede eliminar, porque esta en la tabla Ventas')
                     else:
-                        sql3 = 'delete from repuestos where codrep='+repr(codR)
+                        sql3 = 'delete from repuestos where codrep='+repr(codAbuscar)
                         try:
                             self.cursor.execute(sql3)
                             self.conexion.commit()
