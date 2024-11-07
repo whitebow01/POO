@@ -34,32 +34,5 @@ while True:
         except ValueError:
             print("Error. Por favor, ingrese solo numeros")
         
-    # elige = input('\n Elije una opcion: \n\
-    #     \t Mostrar todos los repuestos(l)\n\
-    #     \t Mostrar un repuesto(b)\n\
-    #     \t Insertar repuesto(c)\n\
-    #     \t Eliminar un repuesto (d)\n\
-    #     \t Modificar(m)\n\
-    #     \t Fin(f)\n\
-    #     \t ==> \n ').lower()
-    # if elige == 'b':
-    #     codAbuscar = input('Ingrese código a buscar = \n')
-    #     db.readRepuesto(codAbuscar)
-    # elif elige == 'l':
-    #     db.listRepuestos()
-    # elif elige == 'c':
-    #     db.createRepuesto()
-    # elif elige == 'd':
-    #     db.deleteRepuesto()
-    # elif elige=='m':
-    #     db.updateRepuestos()
-
-    # elif elige == 'f':
-    #     print('Fin')
-    #     db.cerrarBD()
-    #     break
-    # else:
-    #     print('Error de opción')
-        
-    # input('Pulse Enter para continuar...')
-    # system('cls')
+        input('Pulse Enter para continuar...')
+        system('cls')

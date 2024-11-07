@@ -48,6 +48,8 @@ class Database():
         #Si hay un error, aparecerá en pantalla:       
         except Exception as err:
             print(err)
+            
+    #CREATE
     def createRepuesto(self):
         codR = input('Codigo = \n')
         sql1 = 'select codrep from repuestos where codrep ='+repr(codR)
@@ -73,6 +75,7 @@ class Database():
         except Exception as err:
             print(err)        
     
+    #READ
     def readRepuesto(self):    
         codAbuscar = input('Ingrese código a buscar = \n')
     
@@ -97,6 +100,7 @@ class Database():
         except Exception as err:
             print("Error al realizar la consulta", err)     
 
+    #UPDATE
     def updateRepuestos(self):
         codAbuscar = input('Ingrese código a Actualizar = \n')
         sql1 = 'select * from repuestos where codrep='+repr(codAbuscar)
@@ -143,7 +147,8 @@ class Database():
                 print('No existe ese código')
         except Exception as err: 
             print(err)         
-            
+    
+    #DELETE        
     def deleteRepuesto(self):
         codAbuscar = input('Ingrese código a Eliminar = \n')
         sql1 = 'select * from repuestos where codrep='+repr(codAbuscar)
